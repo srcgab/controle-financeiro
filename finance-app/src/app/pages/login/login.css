@@ -1,0 +1,69 @@
+/* aproveitei o css que você tinha, simplificando */
+.container-login {
+  width: 900px;
+  max-width: 95%;
+  background: rgba(0,0,0,0.15);
+  border-radius: 10px;
+  padding: 24px;
+  color: #ffff9f;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.h-two-class { color: #ffff9f; }
+
+.form-class {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-icons-class { margin: 10px 0; }
+
+.icon-class {
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: azure;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 0 6px;
+  width: 36px;
+  height: 36px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.button-class {
+  padding: 10px;
+  border-radius: 6px;
+  background: #ffcc00;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.toggle-container {
+  grid-column: span 2;
+  display:flex;
+  justify-content:center;
+  margin-top: 12px;
+}
+
+.hidden-class {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.feedback {
+  color: #ffb3b3;
+  font-size: 0.9rem;
+}
