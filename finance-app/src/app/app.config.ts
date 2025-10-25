@@ -1,12 +1,24 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { importProvidersFrom } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
-import { routes } from './app.routes';
+import { Login } from './pages/login/login';     
+import { Home } from './pages/home/home';
 
-export const appConfig: ApplicationConfig = {
+export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: Login },
+  { path: 'home', component: Home },
+  { path: '**', redirectTo: 'login' }
+];
+
+export const appConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    importProvidersFrom(
+      BrowserModule,
+      FormsModule,
+      RouterModule.forRoot(routes)
+    )
   ]
 };

@@ -1,24 +1,22 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService } from './services/auth';
+import { Router } from '@angular/router';
 
-import { AppRoutingModule } from './app.routes';
-import { App } from './app';
-import { Login } from './pages/login/login';
-import { Home } from './pages/home/home';
-
-@NgModule({
-  declarations: [
-    App,
-    Login,
-    Home
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [App]
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './app.html'
 })
-export class AppModule { }
+export class App {
+  isLogged = false;
+  constructor(private auth: AuthService, private router: Router) {
+    this.auth.currentUser$.subscribe(u => this.isLogged = !!u);
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+}
