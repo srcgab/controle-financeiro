@@ -1,1 +1,57 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1b1f32;
+    background: linear-gradient(to right, #1B1F32, #2A3B5F);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1 {
+    color: #ffff9f;
+    text-align: center;
+    padding: 5px;
+    font-size: 2.5em;
+    margin: 25px;
+}
+
+.h-two-class {
+color: #ffff9f;
+}
+
+.form-class {
+
+}
+
+.social-icons-class {
+    margin: 20px 0;
+}
+
+.icon-class {
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: azure;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 15px 6px 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.button-class {
+
+}
+
+.hidden-class {
+
+}
