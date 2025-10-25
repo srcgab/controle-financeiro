@@ -1,1 +1,13 @@
-<p>home works!</p>
+<div class="home-container">
+  <h1>Olá, {{ userName }}!</h1>
+  <p>Bem-vindo ao protótipo do sistema financeiro.</p>
+
+  <section>
+    <h3>Funcionalidade básica: lista de contas (mock)</h3>
+    <ul>
+      <li *ngFor="let item of [ {name:'Conta Corrente', balance: 1200}, {name:'Cartão', balance: -350} ]">
+        {{ item.name }} — R$ {{ item.balance }}
+      </li>
+    </ul>
+  </section>
+</div>
