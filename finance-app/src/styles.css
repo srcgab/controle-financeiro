@@ -15,7 +15,7 @@ body {
 }
 
 h1 {
-    color: #ffff9f;
+    color: #AAD9D9;
     text-align: center;
     padding: 5px;
     font-size: 2.5em;
@@ -23,11 +23,10 @@ h1 {
 }
 
 .h-two-class {
-color: #ffff9f;
+    color: #AAD9D9;
 }
 
 .form-class {
-
 }
 
 .social-icons-class {
@@ -49,9 +48,7 @@ color: #ffff9f;
 }
 
 .button-class {
-
 }
 
 .hidden-class {
-
 }
