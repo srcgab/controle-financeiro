@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 /bazel-out
+/vendor
+/.venv
+/venv
 
 # Node
 /node_modules
@@ -22,6 +25,7 @@ yarn-error.log
 
 # Visual Studio Code
 .vscode/*
+.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -37,6 +41,7 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
+*.log
 
 # System files
 .DS_Store
