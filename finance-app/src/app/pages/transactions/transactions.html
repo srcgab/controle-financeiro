@@ -1,6 +1,143 @@
-<h2>Transações (mock)</h2>
-<ul>
-  <li *ngFor="let t of [ {desc:'Aluguel', value:-800}, {desc:'Salário', value:2500} ]">
-    {{t.desc}} — R$ {{t.value}}
-  </li>
-</ul>
+<div class="transactions-container">
+  <div class="header">
+    <h1>Minhas Transações</h1>
+    <div class="header-actions">
+      <button class="btn-add-income" routerLink="/add-income">
+        <span>+</span> Adicionar Receita
+      </button>
+      <button class="btn-add-expense" routerLink="/add-expense">
+        <span>+</span> Adicionar Despesa
+      </button>
+    </div>
+  </div>
+
+  <div class="summary-cards">
+    <div class="summary-card income">
+      <div class="card-icon">📈</div>
+      <div class="card-info">
+        <span class="card-label">Total Receitas</span>
+        <span class="card-value">{{ formatCurrency(getTotalIncome()) }}</span>
+      </div>
+    </div>
+    
+    <div class="summary-card expense">
+      <div class="card-icon">📉</div>
+      <div class="card-info">
+        <span class="card-label">Total Despesas</span>
+        <span class="card-value">{{ formatCurrency(getTotalExpenses()) }}</span>
+      </div>
+    </div>
+    
+    <div class="summary-card balance" [class.positive]="getBalance() >= 0" [class.negative]="getBalance() < 0">
+      <div class="card-icon">💰</div>
+      <div class="card-info">
+        <span class="card-label">Saldo</span>
+        <span class="card-value">{{ formatCurrency(getBalance()) }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>Tipo:</label>
+      <select [(ngModel)]="selectedType" (change)="applyFilters()" class="filter-select">
+        <option value="all">Todas</option>
+        <option value="income">Receitas</option>
+        <option value="expense">Despesas</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Categoria:</label>
+      <select [(ngModel)]="selectedCategory" (change)="applyFilters()" class="filter-select">
+        <option value="all">Todas</option>
+        <option *ngFor="let cat of categories" [value]="cat.name">
+          {{ cat.icon }} {{ cat.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group search">
+      <label>Buscar:</label>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm"
+        (input)="applyFilters()"
+        placeholder="Buscar por categoria ou descrição..."
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Carregando transações...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="transactions-list">
+    <div *ngIf="filteredTransactions.length === 0" class="empty-state">
+      <p>Nenhuma transação encontrada</p>
+      <button routerLink="/add-income" class="btn-primary">Adicionar primeira transação</button>
+    </div>
+
+    <div *ngIf="filteredTransactions.length > 0" class="transactions-table">
+      <div class="table-header">
+        <div class="col-icon"></div>
+        <div class="col-category">Categoria</div>
+        <div class="col-description">Descrição</div>
+        <div class="col-date">Data</div>
+        <div class="col-amount">Valor</div>
+        <div class="col-actions">Ações</div>
+      </div>
+
+      <div 
+        *ngFor="let transaction of getPaginatedTransactions()" 
+        class="table-row"
+        [class.income-row]="transaction.type === 'income'"
+        [class.expense-row]="transaction.type === 'expense'"
+      >
+        <div class="col-icon">
+          <span class="transaction-icon">{{ getCategoryIcon(transaction.category) }}</span>
+        </div>
+        <div class="col-category">
+          <span class="category-name">{{ transaction.category }}</span>
+          <span class="transaction-type" [class.income]="transaction.type === 'income'" [class.expense]="transaction.type === 'expense'">
+            {{ transaction.type === 'income' ? 'Receita' : 'Despesa' }}
+          </span>
+        </div>
+        <div class="col-description">
+          <span *ngIf="transaction.description">{{ transaction.description }}</span>
+          <span *ngIf="!transaction.description" class="no-description">Sem descrição</span>
+        </div>
+        <div class="col-date">{{ formatDate(transaction.date) }}</div>
+        <div class="col-amount" [class.income]="transaction.type === 'income'" [class.expense]="transaction.type === 'expense'">
+          {{ formatCurrency(transaction.amount) }}
+        </div>
+        <div class="col-actions">
+          <button class="btn-delete" (click)="deleteTransaction(transaction.id)" title="Excluir">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="totalPages > 1" class="pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn-page">
+        ← Anterior
+      </button>
+      <span class="page-info">Página {{ currentPage }} de {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="btn-page">
+        Próxima →
+      </button>
+    </div>
+  </div>
+
+  <div class="back-button-container">
+    <button routerLink="/home" class="btn-back">
+      ← Voltar ao Dashboard
+    </button>
+  </div>
+</div>
