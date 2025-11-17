@@ -185,12 +185,12 @@
 }
 
 .balance-card.status-positive {
-  border-left-color: #32439c;
+  border-left-color: #10b981;
   background: #d4ffe6;
 }
 
 .balance-card.status-negative {
-  border-left-color: #5372ff4f;
+  border-left-color: #ef4444;
   background: white;
 }
 
@@ -219,11 +219,11 @@
 }
 
 .income-card {
-  border-left: 4px solid #32439c;
+  border-left: 4px solid #10b981;
  }
 
 .expense-card {
-  border-left: 4px solid #32439c;
+  border-left: 4px solid #ef4444;
   background: white;
 }
 
