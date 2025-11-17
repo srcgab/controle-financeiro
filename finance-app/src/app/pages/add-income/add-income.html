@@ -1,0 +1,103 @@
+<div class="add-income-container">
+  <div class="header">
+    <button class="back-button" (click)="navigateToHome()">
+      <span>←</span> Voltar
+    </button>
+    <h1>Adicionar Receita</h1>
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="incomeForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Campo Valor -->
+      <div class="form-group">
+        <label for="amount">Valor (R$) *</label>
+        <input 
+          type="number" 
+          id="amount" 
+          formControlName="amount"
+          placeholder="0.00"
+          step="0.01"
+          min="0"
+          [class.invalid]="isFieldInvalid('amount')"
+        />
+        <span class="error-message" *ngIf="isFieldInvalid('amount')">
+          {{ getErrorMessage('amount') }}
+        </span>
+      </div>
+
+      <!-- Campo Data -->
+      <div class="form-group">
+        <label for="date">Data *</label>
+        <input 
+          type="date" 
+          id="date" 
+          formControlName="date"
+          [class.invalid]="isFieldInvalid('date')"
+        />
+        <span class="error-message" *ngIf="isFieldInvalid('date')">
+          {{ getErrorMessage('date') }}
+        </span>
+      </div>
+
+      <!-- Campo Categoria -->
+      <div class="form-group">
+        <label for="category">Categoria *</label>
+        <select 
+          id="category" 
+          formControlName="category"
+          [class.invalid]="isFieldInvalid('category')"
+        >
+          <option value="" disabled>Selecione uma categoria</option>
+          <option *ngFor="let cat of categories" [value]="cat.name">
+            {{ cat.icon }} {{ cat.name }}
+          </option>
+        </select>
+        <span class="error-message" *ngIf="isFieldInvalid('category')">
+          {{ getErrorMessage('category') }}
+        </span>
+      </div>
+
+      <!-- Campo Descrição -->
+      <div class="form-group">
+        <label for="description">Descrição (opcional)</label>
+        <textarea 
+          id="description" 
+          formControlName="description"
+          placeholder="Adicione uma descrição para esta receita..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Mensagens de Feedback -->
+      <div class="message-container">
+        <div class="error-alert" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        <div class="success-alert" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+      </div>
+
+      <!-- Botões de Ação -->
+      <div class="button-group">
+        <button 
+          type="button" 
+          class="btn-secondary"
+          (click)="navigateToTransactions()"
+          [disabled]="isLoading"
+        >
+          Ver Transações
+        </button>
+        <button 
+          type="submit" 
+          class="btn-primary"
+          [disabled]="isLoading"
+        >
+          <span *ngIf="!isLoading">Adicionar Receita</span>
+          <span *ngIf="isLoading">Salvando...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
