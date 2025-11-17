@@ -53,3 +53,445 @@ h1 {
 
 .hidden-class {
 }
+
+@media (max-width: 1024px) {
+  .home-container,
+  .container,
+  .main-container {
+    max-width: 900px;
+    padding: 18px;
+  }
+
+  .dashboard-header,
+  .page-header,
+  header {
+    padding: 18px;
+  }
+
+  .header-content h1,
+  h1 {
+    font-size: 26px;
+  }
+
+  .transaction-cards,
+  .cards-grid,
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+  }
+
+  .balance-amount,
+  .amount-large {
+    font-size: 32px;
+  }
+
+  .transaction-amount,
+  .amount-medium {
+    font-size: 26px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    padding: 10px;
+  }
+
+  .home-container,
+  .container,
+  .main-container {
+    padding: 15px;
+  }
+
+  .dashboard-header,
+  .page-header,
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .header-content h1,
+  h1 {
+    font-size: 22px;
+  }
+
+  .header-subtitle,
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .btn-logout,
+  .header-button {
+    align-self: flex-end;
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .top-toolbar,
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .period-selector,
+  .selector-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .period-dropdown,
+  select,
+  .dropdown {
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .compact-action-buttons,
+  .action-buttons-group {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .btn-compact,
+  .btn-small {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .transaction-cards,
+  .cards-grid,
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-header h2,
+  .card-header h3 {
+    font-size: 16px;
+  }
+
+  .balance-amount,
+  .amount-large {
+    font-size: 28px;
+  }
+
+  .transaction-amount,
+  .amount-medium {
+    font-size: 24px;
+  }
+
+  .progress-percentage {
+    font-size: 18px;
+  }
+
+  .goal-status,
+  .status-text {
+    font-size: 14px;
+  }
+
+  .btn,
+  button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .edit-goal-actions,
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .edit-goal-actions .btn,
+  .form-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container,
+  .container,
+  .main-container {
+    padding: 12px;
+  }
+
+  .dashboard-header,
+  .page-header,
+  header {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+
+  .header-content h1,
+  h1 {
+    font-size: 20px;
+  }
+
+  .header-subtitle,
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .btn-logout,
+  .header-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .dashboard-content,
+  .main-content {
+    gap: 15px;
+  }
+
+  .top-toolbar,
+  .toolbar {
+    gap: 10px;
+  }
+
+  .period-selector,
+  .selector-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .period-selector label,
+  .selector-group label {
+    font-size: 13px;
+  }
+
+  .period-dropdown,
+  select,
+  .dropdown {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .compact-action-buttons,
+  .action-buttons-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-compact,
+  .btn-small {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .card {
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .card-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .card-header h2,
+  .card-header h3 {
+    font-size: 15px;
+  }
+
+  .card-icon,
+  .balance-icon,
+  .icon {
+    font-size: 20px;
+  }
+
+  .balance-amount,
+  .amount-large {
+    font-size: 24px;
+  }
+
+  .balance-status,
+  .status-small {
+    font-size: 12px;
+  }
+
+  .transaction-amount,
+  .amount-medium {
+    font-size: 22px;
+  }
+
+  .transaction-period,
+  .period-text {
+    font-size: 12px;
+  }
+
+  .action-hint,
+  .hint-text {
+    font-size: 11px;
+  }
+
+  .btn-edit-goal,
+  .btn-edit {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .progress-label {
+    font-size: 12px;
+  }
+
+  .progress-percentage {
+    font-size: 16px;
+  }
+
+  .progress-bar {
+    height: 10px;
+  }
+
+  .goal-amounts,
+  .amounts-display {
+    font-size: 12px;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .goal-status,
+  .status-text {
+    font-size: 13px;
+  }
+
+  .edit-goal-form label,
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .goal-input,
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"] {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btn,
+  button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .loading-container {
+    padding: 40px 15px;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+}
+
+@media (max-width: 320px) {
+  .home-container,
+  .container,
+  .main-container {
+    padding: 10px;
+  }
+
+  .dashboard-header,
+  .page-header,
+  header {
+    padding: 10px;
+  }
+
+  .header-content h1,
+  h1 {
+    font-size: 18px;
+  }
+
+  .balance-amount,
+  .amount-large {
+    font-size: 22px;
+  }
+
+  .transaction-amount,
+  .amount-medium {
+    font-size: 20px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .transaction-cards,
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+  }
+
+  .btn-compact:hover,
+  .btn:hover,
+  button:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .dashboard-header,
+  .page-header,
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-content h1,
+  h1 {
+    font-size: 20px;
+  }
+
+  .btn-logout,
+  .header-button {
+    align-self: center;
+  }
+
+  .transaction-cards,
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .card.clickable:hover,
+  .btn:hover,
+  .btn-compact:hover,
+  button:hover {
+    transform: none;
+  }
+
+  .card.clickable:active {
+    transform: scale(0.98);
+  }
+
+  .btn:active,
+  .btn-compact:active,
+  button:active {
+    transform: scale(0.96);
+  }
+}
