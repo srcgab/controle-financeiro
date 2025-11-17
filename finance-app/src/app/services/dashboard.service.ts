@@ -1,158 +1,143 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, forkJoin } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { DashboardSummary } from '../models/dashboard.model';
-import { Transaction } from '../models/transaction.model';
+import { TransactionService } from './transaction.service';
+import { AuthService } from './auth';
+import { environment } from '../../environments/environment';
+
+interface Goal {
+  id: number;
+  userId: number;
+  targetAmount: number;
+  currentAmount: number;
+  description: string;
+  createdAt: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  private mockTransactions: Transaction[] = [
-    {
-      id: 1,
-      type: 'income',
-      amount: 5000,
-      date: new Date(2024, 10, 5),
-      category: 'Salário',
-      description: 'Salário mensal'
-    },
-    {
-      id: 2,
-      type: 'income',
-      amount: 1500,
-      date: new Date(2024, 10, 10),
-      category: 'Freelance',
-      description: 'Projeto web'
-    },
-    {
-      id: 3,
-      type: 'expense',
-      amount: 1200,
-      date: new Date(2024, 10, 8),
-      category: 'Aluguel',
-      description: 'Aluguel mensal'
-    },
-    {
-      id: 4,
-      type: 'expense',
-      amount: 450,
-      date: new Date(2024, 10, 12),
-      category: 'Alimentação',
-      description: 'Supermercado'
-    },
-    {
-      id: 5,
-      type: 'expense',
-      amount: 300,
-      date: new Date(2024, 10, 15),
-      category: 'Transporte',
-      description: 'Combustível e manutenção'
-    }
-  ];
-
-  private currentPeriod = 'Este mês';
+  private apiUrl = `${environment.apiUrl}/goals`;
   private financialGoalSubject = new BehaviorSubject({
     targetAmount: 10000,
-    currentAmount: 5000,
-    progressPercentage: 50.0
+    currentAmount: 0,
+    progressPercentage: 0
   });
 
   financialGoal$ = this.financialGoalSubject.asObservable();
 
-  constructor() {}
+  constructor(
+    private http: HttpClient,
+    private transactionService: TransactionService,
+    private authService: AuthService
+  ) {
+    this.loadFinancialGoal();
+  }
+
+  private loadFinancialGoal(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) return;
+
+    this.http.get<Goal[]>(`${this.apiUrl}?userId=${currentUser.id}`).subscribe({
+      next: (goals) => {
+        if (goals.length > 0) {
+          const goal = goals[0];
+          this.financialGoalSubject.next({
+            targetAmount: goal.targetAmount,
+            currentAmount: goal.currentAmount,
+            progressPercentage: (goal.currentAmount / goal.targetAmount) * 100
+          });
+        }
+      },
+      error: (err) => console.error('Erro ao carregar meta financeira:', err)
+    });
+  }
 
   getDashboardSummary(period: string = 'Este mês'): Observable<DashboardSummary> {
-    this.currentPeriod = period;
+    const dateRange = this.getDateRangeByPeriod(period);
     
-    const filteredTransactions = this.filterTransactionsByPeriod(period);
-    const totalIncome = filteredTransactions
-      .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0);
-    
-    const totalExpense = filteredTransactions
-      .filter(t => t.type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
-    
-    const currentBalance = -100;
-
-    const summary: DashboardSummary = {
-      currentBalance,
-      totalIncome,
-      totalExpense,
-      period,
-      financialGoal: this.financialGoalSubject.getValue()
-    };
-
-    return of(summary).pipe(delay(300));
+    return forkJoin({
+      income: this.transactionService.getTotalIncome(dateRange.start, dateRange.end),
+      expense: this.transactionService.getTotalExpenses(dateRange.start, dateRange.end),
+      balance: this.transactionService.getBalance(dateRange.start, dateRange.end)
+    }).pipe(
+      map(result => ({
+        currentBalance: result.balance,
+        totalIncome: result.income,
+        totalExpense: result.expense,
+        period,
+        financialGoal: this.financialGoalSubject.getValue()
+      }))
+    );
   }
 
   updateFinancialGoal(targetAmount: number): Observable<boolean> {
-    const current = this.financialGoalSubject.getValue();
-    const progressPercentage = (current.currentAmount / targetAmount) * 100;
-    
-    this.financialGoalSubject.next({
-      targetAmount,
-      currentAmount: current.currentAmount,
-      progressPercentage
-    });
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('Usuário não autenticado');
+    }
 
-    return of(true).pipe(delay(200));
+    return this.http.get<Goal[]>(`${this.apiUrl}?userId=${currentUser.id}`).pipe(
+      map(goals => {
+        const current = this.financialGoalSubject.getValue();
+        const progressPercentage = (current.currentAmount / targetAmount) * 100;
+        
+        const updatedGoal = {
+          targetAmount,
+          currentAmount: current.currentAmount,
+          progressPercentage
+        };
+
+        if (goals.length > 0) {
+          // Atualiza meta existente
+          this.http.patch(`${this.apiUrl}/${goals[0].id}`, {
+            targetAmount,
+            currentAmount: current.currentAmount
+          }).subscribe();
+        } else {
+          // Cria nova meta
+          this.http.post(this.apiUrl, {
+            userId: currentUser.id,
+            targetAmount,
+            currentAmount: current.currentAmount,
+            description: 'Meta de economia',
+            createdAt: new Date().toISOString()
+          }).subscribe();
+        }
+
+        this.financialGoalSubject.next(updatedGoal);
+        return true;
+      })
+    );
   }
 
-  private filterTransactionsByPeriod(period: string): Transaction[] {
+  private getDateRangeByPeriod(period: string): { start: Date; end: Date } {
     const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
+    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+    let start: Date;
 
     switch (period) {
       case 'Este mês':
-        return this.mockTransactions.filter(t => {
-          const transDate = new Date(t.date);
-          return transDate.getMonth() === currentMonth && transDate.getFullYear() === currentYear;
-        });
+        start = new Date(now.getFullYear(), now.getMonth(), 1);
+        break;
       
       case 'Esta semana':
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(now.getDate() - 7);
-        return this.mockTransactions.filter(t => new Date(t.date) >= oneWeekAgo);
+        start = new Date();
+        start.setDate(now.getDate() - 7);
+        break;
       
       case 'Últimos 3 meses':
-        const threeMonthsAgo = new Date();
-        threeMonthsAgo.setMonth(now.getMonth() - 3);
-        return this.mockTransactions.filter(t => new Date(t.date) >= threeMonthsAgo);
+        start = new Date();
+        start.setMonth(now.getMonth() - 3);
+        break;
       
       default:
-        return this.mockTransactions;
+        start = new Date(now.getFullYear(), now.getMonth(), 1);
     }
-  }
 
-  getTransactions(): Transaction[] {
-    return [...this.mockTransactions];
-  }
-
-  addTransaction(transaction: Transaction): Observable<Transaction> {
-    const newTransaction = {
-      ...transaction,
-      id: this.mockTransactions.length + 1
-    };
-    this.mockTransactions.push(newTransaction);
-    
-    // Recalculate financial goal progress
-    const goal = this.financialGoalSubject.getValue();
-    const currentAmount = this.mockTransactions
-      .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0) - 
-      this.mockTransactions
-      .filter(t => t.type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
-    
-    this.financialGoalSubject.next({
-      ...goal,
-      currentAmount,
-      progressPercentage: (currentAmount / goal.targetAmount) * 100
-    });
-
-    return of(newTransaction).pipe(delay(300));
+    return { start, end };
   }
 }
