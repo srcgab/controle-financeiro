@@ -1,65 +1,98 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 export interface User {
   id: number;
   name: string;
   email: string;
   password: string;
+  photoUrl?: string;
+  createdAt?: string;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  message?: string;
+  user?: User;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private users: User[] = [];
+  private apiUrl = `${environment.apiUrl}/users`;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private router: Router) {
-    const saved = localStorage.getItem('mock_users');
-    if (saved) {
-      this.users = JSON.parse(saved);
-      const cur = localStorage.getItem('current_user');
-      if (cur) this.currentUserSubject.next(JSON.parse(cur));
-    } else {
-      this.users = [
-        { id: 1, name: 'Teste', email: 'teste@ex.com', password: '123456' }
-      ];
-      localStorage.setItem('mock_users', JSON.stringify(this.users));
+  constructor(private http: HttpClient, private router: Router) {
+    // Verifica se há usuário logado no localStorage
+    const savedUser = localStorage.getItem('current_user');
+    if (savedUser) {
+      this.currentUserSubject.next(JSON.parse(savedUser));
     }
   }
 
-  private persist() {
-    localStorage.setItem('mock_users', JSON.stringify(this.users));
+  register(name: string, email: string, password: string): Observable<AuthResponse> {
+    // Verifica se o email já existe
+    return this.http.get<User[]>(`${this.apiUrl}?email=${email}`).pipe(
+      map(users => {
+        if (users.length > 0) {
+          throw new Error('Email já cadastrado');
+        }
+        return users;
+      }),
+      catchError(() => of([])),
+      map(() => {
+        // Cria novo usuário
+        const newUser: Omit<User, 'id'> = {
+          name,
+          email,
+          password,
+          photoUrl: '',
+          createdAt: new Date().toISOString()
+        };
+        return newUser;
+      }),
+      // Salva o usuário
+      tap(newUser => {
+        this.http.post<User>(this.apiUrl, newUser).pipe(
+          tap(user => {
+            const userWithoutPassword = { ...user, password: '' };
+            this.currentUserSubject.next(userWithoutPassword);
+            localStorage.setItem('current_user', JSON.stringify(userWithoutPassword));
+          })
+        ).subscribe();
+      }),
+      map(() => ({ success: true, message: 'Cadastro realizado com sucesso!' })),
+      catchError(error => {
+        return of({ success: false, message: error.message || 'Erro ao registrar usuário' });
+      })
+    );
   }
 
-  register(name: string, email: string, password: string): { success: boolean; message?: string } {
-    const exists = this.users.find(u => u.email === email);
-    if (exists) return { success: false, message: 'Email já cadastrado' };
-    const newUser: User = {
-      id: this.users.length + 1,
-      name,
-      email,
-      password
-    };
-    this.users.push(newUser);
-    this.persist();
-    this.currentUserSubject.next({ ...newUser, password: '' });
-    localStorage.setItem('current_user', JSON.stringify({ ...newUser, password: '' }));
-    return { success: true };
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.get<User[]>(`${this.apiUrl}?email=${email}&password=${password}`).pipe(
+      map(users => {
+        if (users.length === 0) {
+          throw new Error('Credenciais inválidas');
+        }
+        const user = users[0];
+        const userWithoutPassword = { ...user, password: '' };
+        this.currentUserSubject.next(userWithoutPassword);
+        localStorage.setItem('current_user', JSON.stringify(userWithoutPassword));
+        return { success: true, user: userWithoutPassword };
+      }),
+      catchError(error => {
+        return of({ success: false, message: error.message || 'Erro ao fazer login' });
+      })
+    );
   }
 
-  login(email: string, password: string): { success: boolean; message?: string } {
-    const user = this.users.find(u => u.email === email && u.password === password);
-    if (!user) return { success: false, message: 'Credenciais inválidas' };
-    this.currentUserSubject.next({ ...user, password: '' });
-    localStorage.setItem('current_user', JSON.stringify({ ...user, password: '' }));
-    return { success: true };
-  }
-
-  logout() {
+  logout(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('current_user');
     this.router.navigate(['/login']);
@@ -67,5 +100,15 @@ export class AuthService {
 
   getCurrentUser(): User | null {
     return this.currentUserSubject.getValue();
+  }
+
+  updateUser(userId: number, updates: Partial<User>): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}/${userId}`, updates).pipe(
+      tap(user => {
+        const userWithoutPassword = { ...user, password: '' };
+        this.currentUserSubject.next(userWithoutPassword);
+        localStorage.setItem('current_user', JSON.stringify(userWithoutPassword));
+      })
+    );
   }
 }
