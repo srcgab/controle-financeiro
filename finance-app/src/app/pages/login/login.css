@@ -1,5 +1,5 @@
 .container-login {
-    background-color: #4f5fa84f;
+    background-color: #5372ff4f;
     box-shadow: inset 0px 0px 20px 7px rgb(255 255 255 / 8%);
     border-radius: 25px;
     position: relative;
@@ -46,8 +46,9 @@
 }
 
 .container-login button.hidden-class {
-    background-color: transparent;
+    background-color: #32439c;
     border-color: #fff;
+    color: #d4ffe6;
 }
 
 .container-login form {
@@ -60,7 +61,7 @@
 }
 
 .container-login input {
-    background-color: #b3b2c8;
+    background-color: #fff;
     border: none;
     margin: 8px 0;
     padding: 10px 15px;
@@ -136,7 +137,7 @@
 .toogle-msg {
     background-color: #1b1f324f;
     height: 100%;
-    background: linear-gradient(to right, #9fa6d0, #4258c24f);
+    background: linear-gradient(to right, #657bff, #8799f24f);
     color: #fff;
     position: relative;
     left: -100%;

@@ -6,7 +6,7 @@
 
 body {
     background-color: #1b1f32;
-    background: linear-gradient(to right, #1B1F32, #2A3B5F);
+    background: linear-gradient(to right, #c5cfff, #96a6c7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,7 @@ body {
 }
 
 h1 {
-    color: #AAD9D9;
+    color: #d4ffe6;
     text-align: center;
     padding: 5px;
     font-size: 2.5em;
@@ -23,7 +23,7 @@ h1 {
 }
 
 .h-two-class {
-    color: #AAD9D9;
+    color: #d4ffe6;
 }
 
 .form-class {
@@ -34,12 +34,13 @@ h1 {
 }
 
 .icon-class {
-    border: 1px solid #ccc;
+    border: 1px solid #ffff;
+    background-color: #d4ffe6;
     border-radius: 20%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    color: azure;
+    color: #32439c;
     font-size: 13px;
     text-decoration: none;
     margin: 15px 6px 10px;
