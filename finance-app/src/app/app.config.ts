@@ -1,24 +1,18 @@
-import { importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { routes } from './app.routes';
 
-import { Login } from './pages/login/login';     
-import { Home } from './pages/home/home';
-
-export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: Login },
-  { path: 'home', component: Home },
-  { path: '**', redirectTo: 'login' }
-];
-
-export const appConfig = {
+export const appConfig: ApplicationConfig = {
   providers: [
+    provideRouter(routes),
+    provideHttpClient(),
     importProvidersFrom(
       BrowserModule,
       FormsModule,
-      RouterModule.forRoot(routes)
+      ReactiveFormsModule
     )
   ]
 };
