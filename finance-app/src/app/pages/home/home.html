@@ -1,13 +1,141 @@
 <div class="home-container">
-  <h1>Olá, {{ userName }}!</h1>
-  <p>Bem-vindo ao protótipo do sistema financeiro.</p>
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1>Olá, {{ userName }}! </h1>
+      <p class="header-subtitle">Bem-vindo ao seu painel financeiro</p>
+    </div>
+    <button class="btn-logout" (click)="logout()">Sair</button>
+  </header>
 
-  <section>
-    <h3>Funcionalidade básica: lista de contas (mock)</h3>
-    <ul>
-      <li *ngFor="let item of [ {name:'Conta Corrente', balance: 1200}, {name:'Cartão', balance: -350} ]">
-        {{ item.name }} — R$ {{ item.balance }}
-      </li>
-    </ul>
-  </section>
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Carregando dados...</p>
+  </div>
+
+  <div *ngIf="!isLoading && dashboardData" class="dashboard-content">
+    
+    <div class="top-toolbar">
+      <div class="period-selector">
+        <label for="period">Período:</label>
+        <select 
+          id="period" 
+          [(ngModel)]="selectedPeriod" 
+          (change)="onPeriodChange()"
+          class="period-dropdown">
+          <option *ngFor="let period of periods" [value]="period">{{ period }}</option>
+        </select>
+      </div>
+      
+      <div class="compact-action-buttons">
+        <button class="btn btn-compact btn-income" (click)="navigateToAddIncome()">
+          Nova Receita
+        </button>
+        <button class="btn btn-compact btn-expense" (click)="navigateToAddExpense()">
+          Nova Despesa
+        </button>
+      </div>
+    </div>
+
+    <div class="card balance-card" [ngClass]="'status-' + getBalanceStatus()">
+      <div class="card-header">
+        <h2>Saldo Atual</h2>
+        <span class="balance-icon"></span>
+      </div>
+      <div class="card-body">
+        <p class="balance-amount">R$ {{ dashboardData.currentBalance | number:'1.2-2' }}</p>
+        <p class="balance-status" *ngIf="getBalanceStatus() === 'positive'">
+          Situação positiva
+        </p>
+        <p class="balance-status" *ngIf="getBalanceStatus() === 'negative'">
+          Atenção necessária
+        </p>
+        <p class="balance-status" *ngIf="getBalanceStatus() === 'neutral'">
+          ℹSituação neutra
+        </p>
+      </div>
+    </div>
+
+    <div class="transaction-cards">
+      <div class="card income-card clickable" (click)="navigateToAddIncome()">
+        <div class="card-header">
+          <h3>Receitas</h3>
+          <span class="card-icon"></span>
+        </div>
+        <div class="card-body">
+          <p class="transaction-amount income">R$ {{ dashboardData.totalIncome | number:'1.2-2' }}</p>
+          <p class="transaction-period">{{ dashboardData.period }}</p>
+        </div>
+        <div class="card-footer">
+          <span class="action-hint">Clique para adicionar receita</span>
+        </div>
+      </div>
+
+      <div class="card expense-card clickable" (click)="navigateToAddExpense()">
+        <div class="card-header">
+          <h3>Despesas</h3>
+          <span class="card-icon"></span>
+        </div>
+        <div class="card-body">
+          <p class="transaction-amount expense">R$ {{ dashboardData.totalExpense | number:'1.2-2' }}</p>
+          <p class="transaction-period">{{ dashboardData.period }}</p>
+        </div>
+        <div class="card-footer">
+          <span class="action-hint">Clique para adicionar despesa</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card goal-card" *ngIf="dashboardData.financialGoal">
+      <div class="card-header">
+        <h3>Meta Financeira</h3>
+        <button class="btn-edit-goal" (click)="openEditGoal()" *ngIf="!isEditingGoal">
+          Alterar Meta
+        </button>
+      </div>
+      
+      <div class="card-body" *ngIf="!isEditingGoal">
+        <div class="goal-progress">
+          <div class="progress-info">
+            <span class="progress-label">Progresso atual</span>
+            <span class="progress-percentage">
+              {{ dashboardData.financialGoal.progressPercentage | number:'1.1-1' }}%
+            </span>
+          </div>
+          <div class="progress-bar">
+            <div 
+              class="progress-fill" 
+              [style.width.%]="dashboardData.financialGoal.progressPercentage">
+            </div>
+          </div>
+          <div class="goal-amounts">
+            <span class="current-amount">
+              R$ {{ dashboardData.financialGoal.currentAmount | number:'1.2-2' }}
+            </span>
+            <span class="target-amount">
+              R$ {{ dashboardData.financialGoal.targetAmount | number:'1.2-2' }}
+            </span>
+          </div>
+        </div>
+        <p class="goal-status">{{ getGoalStatusText() }}</p>
+      </div>
+
+      <div class="card-body" *ngIf="isEditingGoal">
+        <div class="edit-goal-form">
+          <label for="goalAmount">Nova meta mensal (R$):</label>
+          <input 
+            type="number" 
+            id="goalAmount" 
+            [(ngModel)]="newGoalAmount" 
+            class="goal-input"
+            min="0"
+            step="100">
+          <div class="edit-goal-actions">
+            <button class="btn btn-primary" (click)="saveGoal()">Salvar</button>
+            <button class="btn btn-secondary" (click)="cancelEditGoal()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
