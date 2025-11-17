@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class Login {
   isRegistering = false;
+  isLoading = false;
 
   loginEmail = '';
   loginSenha = '';
@@ -27,24 +28,44 @@ export class Login {
 
   onLogin(e: Event) {
     e.preventDefault();
-    const res = this.auth.login(this.loginEmail.trim(), this.loginSenha);
-    if (!res.success) {
-      this.feedback = res.message || 'Erro ao logar';
-      return;
-    }
     this.feedback = '';
-    this.router.navigate(['/home']);
+    this.isLoading = true;
+    
+    this.auth.login(this.loginEmail.trim(), this.loginSenha).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        if (!res.success) {
+          this.feedback = res.message || 'Erro ao logar';
+          return;
+        }
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.feedback = err.message || 'Erro ao fazer login';
+      }
+    });
   }
 
   onRegister(e: Event) {
     e.preventDefault();
-    const res = this.auth.register(this.cadastroNome.trim(), this.cadastroEmail.trim(), this.cadastroSenha);
-    if (!res.success) {
-      this.feedback = res.message || 'Erro ao registrar';
-      return;
-    }
     this.feedback = '';
-    this.router.navigate(['/home']);
+    this.isLoading = true;
+    
+    this.auth.register(this.cadastroNome.trim(), this.cadastroEmail.trim(), this.cadastroSenha).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        if (!res.success) {
+          this.feedback = res.message || 'Erro ao registrar';
+          return;
+        }
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.feedback = err.message || 'Erro ao registrar usuário';
+      }
+    });
   }
 
   toggle(mode: boolean) {
