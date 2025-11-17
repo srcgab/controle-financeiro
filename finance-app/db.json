@@ -1,0 +1,161 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Usuário Teste",
+      "email": "teste@exemplo.com",
+      "password": "123456",
+      "photoUrl": "",
+      "createdAt": "2025-11-01T00:00:00.000Z"
+    },
+    {
+      "name": "teste 2",
+      "email": "teste@teste.com",
+      "password": "123678",
+      "photoUrl": "",
+      "createdAt": "2025-11-17T13:31:50.704Z",
+      "id": 2
+    },
+    {
+      "name": "teste 2",
+      "email": "teste@teste.com",
+      "password": "123678",
+      "photoUrl": "",
+      "createdAt": "2025-11-17T13:31:52.871Z",
+      "id": 3
+    }
+  ],
+  "transactions": [
+    {
+      "id": 2,
+      "userId": 1,
+      "type": "expense",
+      "amount": 1500,
+      "date": "2025-11-05",
+      "category": "Moradia",
+      "description": "Aluguel"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "type": "income",
+      "amount": 1200,
+      "date": "2025-11-15",
+      "category": "Freelance",
+      "description": "Projeto website"
+    },
+    {
+      "type": "income",
+      "amount": 10,
+      "date": "2025-11-17",
+      "category": "Bônus",
+      "description": "reere",
+      "userId": 3,
+      "id": 6
+    },
+    {
+      "type": "expense",
+      "amount": 50,
+      "date": "2025-11-17",
+      "category": "Lazer",
+      "userId": 3,
+      "id": 7
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Salário",
+      "type": "income",
+      "icon": ""
+    },
+    {
+      "id": 2,
+      "name": "Freelance",
+      "type": "income",
+      "icon": ""
+    },
+    {
+      "id": 3,
+      "name": "Investimentos",
+      "type": "income",
+      "icon": ""
+    },
+    {
+      "id": 4,
+      "name": "Bônus",
+      "type": "income",
+      "icon": ""
+    },
+    {
+      "id": 5,
+      "name": "Outros",
+      "type": "income",
+      "icon": ""
+    },
+    {
+      "id": 6,
+      "name": "Alimentação",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 7,
+      "name": "Transporte",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 8,
+      "name": "Moradia",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 9,
+      "name": "Saúde",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 10,
+      "name": "Educação",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 11,
+      "name": "Lazer",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 12,
+      "name": "Roupas",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 13,
+      "name": "Serviços",
+      "type": "expense",
+      "icon": ""
+    },
+    {
+      "id": 14,
+      "name": "Outros",
+      "type": "expense",
+      "icon": ""
+    }
+  ],
+  "goals": [
+    {
+      "id": 1,
+      "userId": 1,
+      "targetAmount": 10000,
+      "currentAmount": 5000,
+      "description": "Meta de economia",
+      "createdAt": "2025-11-01T00:00:00.000Z"
+    }
+  ]
+}
