@@ -13,7 +13,7 @@
 
   <div class="summary-cards">
     <div class="summary-card income">
-      <div class="card-icon">📈</div>
+      <div class="card-icon"></div>
       <div class="card-info">
         <span class="card-label">Total Receitas</span>
         <span class="card-value">{{ formatCurrency(getTotalIncome()) }}</span>
@@ -21,7 +21,7 @@
     </div>
     
     <div class="summary-card expense">
-      <div class="card-icon">📉</div>
+      <div class="card-icon"></div>
       <div class="card-info">
         <span class="card-label">Total Despesas</span>
         <span class="card-value">{{ formatCurrency(getTotalExpenses()) }}</span>
@@ -29,7 +29,7 @@
     </div>
     
     <div class="summary-card balance" [class.positive]="getBalance() >= 0" [class.negative]="getBalance() < 0">
-      <div class="card-icon">💰</div>
+      <div class="card-icon"></div>
       <div class="card-info">
         <span class="card-label">Saldo</span>
         <span class="card-value">{{ formatCurrency(getBalance()) }}</span>
