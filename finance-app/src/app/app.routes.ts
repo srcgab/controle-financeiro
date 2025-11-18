@@ -4,6 +4,8 @@ import { Home } from './pages/home/home';
 import { Transactions } from './pages/transactions/transactions';
 import { AddIncome } from './pages/add-income/add-income';
 import { AddExpense } from './pages/add-expense/add-expense';
+import { Profile } from './pages/profile/profile';
+import { About } from './pages/about/about';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -28,6 +30,15 @@ export const routes: Routes = [
     path: 'add-expense', 
     component: AddExpense,
     canActivate: [authGuard]
+  },
+  { 
+    path: 'profile', 
+    component: Profile,
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'about', 
+    component: About
   },
   { path: '**', redirectTo: 'login' }
 ];
