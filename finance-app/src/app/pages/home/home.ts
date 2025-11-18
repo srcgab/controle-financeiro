@@ -83,6 +83,10 @@ export class Home implements OnInit {
     this.router.navigate(['/transactions'], { queryParams: { type: 'expense' } });
   }
 
+  navigateToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
+
   getBalanceStatus(): string {
     if (!this.dashboardData) return 'neutral';
     if (this.dashboardData.currentBalance > 0) return 'positive';

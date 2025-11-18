@@ -4,7 +4,10 @@
       <h1>Olá, {{ userName }}! </h1>
       <p class="header-subtitle">Bem-vindo ao seu painel financeiro</p>
     </div>
-    <button class="btn-logout" (click)="logout()">Sair</button>
+    <div class="header-actions">
+      <button class="btn-profile" (click)="navigateToProfile()">Perfil</button>
+      <button class="btn-logout" (click)="logout()">Sair</button>
+    </div>
   </header>
 
   <div *ngIf="isLoading" class="loading-container">
