@@ -92,13 +92,11 @@ export class DashboardService {
         };
 
         if (goals.length > 0) {
-          // Atualiza meta existente
           this.http.patch(`${this.apiUrl}/${goals[0].id}`, {
             targetAmount,
             currentAmount: current.currentAmount
           }).subscribe();
         } else {
-          // Cria nova meta
           this.http.post(this.apiUrl, {
             userId: currentUser.id,
             targetAmount,

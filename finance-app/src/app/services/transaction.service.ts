@@ -23,7 +23,6 @@ export class TransactionService {
       return throwError(() => new Error('Usuário não autenticado'));
     }
 
-    // Validações
     if (!transaction.amount || transaction.amount <= 0) {
       return throwError(() => new Error('Valor inválido'));
     }
@@ -68,7 +67,6 @@ export class TransactionService {
 
     return this.http.get<Transaction[]>(this.apiUrl, { params }).pipe(
       map(transactions => {
-        // Filtros adicionais no cliente
         let filtered = transactions;
 
         if (filter?.startDate) {
@@ -85,7 +83,6 @@ export class TransactionService {
           });
         }
 
-        // Ordena por data decrescente
         return filtered.sort((a, b) => {
           const dateA = new Date(a.date).getTime();
           const dateB = new Date(b.date).getTime();
