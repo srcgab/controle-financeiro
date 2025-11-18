@@ -33,7 +33,6 @@ describe('AddExpense', () => {
     categoryService = TestBed.inject(CategoryService) as jasmine.SpyObj<CategoryService>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
 
-    // Mock da resposta de categorias
     categoryService.getExpenseCategories.and.returnValue(of([
       { id: 6, name: 'Alimentação', type: 'expense', icon: '🍔' },
       { id: 7, name: 'Transporte', type: 'expense', icon: '🚗' }

@@ -80,7 +80,6 @@ export class AddExpense implements OnInit {
         this.isLoading = false;
         this.successMessage = 'Despesa adicionada com sucesso!';
         
-        // Reseta o formulário após 1 segundo
         setTimeout(() => {
           this.expenseForm.reset({
             date: this.getTodayDate()

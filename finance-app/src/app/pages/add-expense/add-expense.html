@@ -9,7 +9,6 @@
   <div class="form-card">
     <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
       
-      <!-- Campo Valor -->
       <div class="form-group">
         <label for="amount">Valor (R$) *</label>
         <input 
@@ -26,7 +25,6 @@
         </span>
       </div>
 
-      <!-- Campo Data -->
       <div class="form-group">
         <label for="date">Data *</label>
         <input 
@@ -40,7 +38,6 @@
         </span>
       </div>
 
-      <!-- Campo Categoria -->
       <div class="form-group">
         <label for="category">Categoria *</label>
         <select 
@@ -58,7 +55,6 @@
         </span>
       </div>
 
-      <!-- Campo Descrição -->
       <div class="form-group">
         <label for="description">Descrição (opcional)</label>
         <textarea 
@@ -69,7 +65,6 @@
         ></textarea>
       </div>
 
-      <!-- Mensagens de Feedback -->
       <div class="message-container">
         <div class="error-alert" *ngIf="errorMessage">
           {{ errorMessage }}
@@ -79,7 +74,6 @@
         </div>
       </div>
 
-      <!-- Botões de Ação -->
       <div class="button-group">
         <button 
           type="button" 

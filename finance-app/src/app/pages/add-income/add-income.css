@@ -161,7 +161,6 @@
   cursor: not-allowed;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .add-income-container {
     padding: 15px;

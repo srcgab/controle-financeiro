@@ -80,7 +80,6 @@ export class AddIncome implements OnInit {
         this.isLoading = false;
         this.successMessage = 'Receita adicionada com sucesso!';
         
-        // Reseta o formulário após 1 segundo
         setTimeout(() => {
           this.incomeForm.reset({
             date: this.getTodayDate()
