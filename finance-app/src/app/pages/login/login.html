@@ -1,33 +1,120 @@
 <div class="container-login" [class.active]="isRegistering">
   <div class="account-access sign-in" *ngIf="!isRegistering">
-    <form class="form-class" (submit)="onLogin($event)">
+    <form class="form-class" (submit)="onLogin($event)" novalidate>
       <h2 class="h-two-class">Login</h2>
       <div class="social-icons-class">
-        <a href="#" class="icon-class"><i class="fab fa-google"></i></a>
-        <a href="#" class="icon-class"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="icon-class" (click)="$event.preventDefault()" title="Login social não disponível"><i class="fab fa-google"></i></a>
+        <a href="#" class="icon-class" (click)="$event.preventDefault()" title="Login social não disponível"><i class="fab fa-facebook-f"></i></a>
       </div>
       <span>Ou entre com e-mail e senha: </span>
-      <input type="email" [(ngModel)]="loginEmail" name="loginEmail" placeholder="Email" required />
-      <input type="password" [(ngModel)]="loginSenha" name="loginSenha" placeholder="Senha" required />
-      <a href="#" class="forget-pass">Esqueceu a senha?</a>
-      <button type="submit" class="button-class">Entrar</button>
-      <p class="feedback" *ngIf="feedback">{{ feedback }}</p>
+      
+      <input 
+        type="email" 
+        [(ngModel)]="loginEmail" 
+        name="loginEmail" 
+        placeholder="Email" 
+        required 
+        autocomplete="email"
+        [disabled]="isLoading" />
+      
+      <input 
+        type="password" 
+        [(ngModel)]="loginSenha" 
+        name="loginSenha" 
+        placeholder="Senha" 
+        required 
+        autocomplete="current-password"
+        [disabled]="isLoading"
+        minlength="8" />
+      
+      <div class="validation-errors" *ngIf="loginErrors.length > 0">
+        <p *ngFor="let error of loginErrors" class="error-text">{{ error }}</p>
+      </div>
+      
+      <a href="#" class="forget-pass" (click)="$event.preventDefault()">Esqueceu a senha?</a>
+      
+      <button 
+        type="submit" 
+        class="button-class" 
+        [disabled]="isLoading">
+        {{ isLoading ? 'Entrando...' : 'Entrar' }}
+      </button>
+      
+      <p class="feedback" *ngIf="feedback" [class.success]="feedbackType === 'success'" [class.error]="feedbackType === 'error'">
+        {{ feedback }}
+      </p>
     </form>
   </div>
 
   <div class="account-access sign-up" *ngIf="isRegistering">
-    <form class="form-class" (submit)="onRegister($event)">
+    <form class="form-class" (submit)="onRegister($event)" novalidate>
       <h2 class="h-two-class">Criar uma Conta</h2>
       <div class="social-icons-class">
-        <a href="#" class="icon-class"><i class="fab fa-google"></i></a>
-        <a href="#" class="icon-class"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="icon-class" (click)="$event.preventDefault()" title="Cadastro social não disponível"><i class="fab fa-google"></i></a>
+        <a href="#" class="icon-class" (click)="$event.preventDefault()" title="Cadastro social não disponível"><i class="fab fa-facebook-f"></i></a>
       </div>
       <span>Ou registre-se com e-mail e senha: </span>
-      <input type="text" [(ngModel)]="cadastroNome" name="cadastroNome" placeholder="Nome" required />
-      <input type="email" [(ngModel)]="cadastroEmail" name="cadastroEmail" placeholder="Email" required />
-      <input type="password" [(ngModel)]="cadastroSenha" name="cadastroSenha" placeholder="Senha" required />
-      <button type="submit" class="button-class">Criar Conta</button>
-      <p class="feedback" *ngIf="feedback">{{ feedback }}</p>
+      
+      <input 
+        type="text" 
+        [(ngModel)]="cadastroNome" 
+        name="cadastroNome" 
+        placeholder="Nome completo" 
+        required 
+        autocomplete="name"
+        [disabled]="isLoading"
+        minlength="2"
+        maxlength="100" />
+      
+      <input 
+        type="email" 
+        [(ngModel)]="cadastroEmail" 
+        name="cadastroEmail" 
+        placeholder="Email" 
+        required 
+        autocomplete="email"
+        [disabled]="isLoading" />
+      
+      <input 
+        type="password" 
+        [(ngModel)]="cadastroSenha" 
+        name="cadastroSenha" 
+        placeholder="Senha (mín. 8 caracteres)" 
+        required 
+        autocomplete="new-password"
+        [disabled]="isLoading"
+        minlength="8"
+        maxlength="128" />
+      
+      <input 
+        type="password" 
+        [(ngModel)]="cadastroSenhaConfirm" 
+        name="cadastroSenhaConfirm" 
+        placeholder="Confirme a senha" 
+        required 
+        autocomplete="new-password"
+        [disabled]="isLoading"
+        minlength="8"
+        maxlength="128" />
+      
+      <div class="validation-errors" *ngIf="registerErrors.length > 0">
+        <p *ngFor="let error of registerErrors" class="error-text">{{ error }}</p>
+      </div>
+      
+      <div class="password-requirements">
+        <small>A senha deve conter: letra maiúscula, minúscula, número e caractere especial</small>
+      </div>
+      
+      <button 
+        type="submit" 
+        class="button-class" 
+        [disabled]="isLoading">
+        {{ isLoading ? 'Criando conta...' : 'Criar Conta' }}
+      </button>
+      
+      <p class="feedback" *ngIf="feedback" [class.success]="feedbackType === 'success'" [class.error]="feedbackType === 'error'">
+        {{ feedback }}
+      </p>
     </form>
   </div>
 
@@ -36,12 +123,12 @@
       <div class="toggle-panel left-toggle" *ngIf="isRegistering">
         <h2 class="h-two-class">Bem-vindo de volta!</h2>
         <p>Faça login para usar as funcionalidades disponíveis!</p>
-        <button class="hidden-class" (click)="toggle(false)">Login</button>
+        <button class="hidden-class" (click)="toggle(false)" [disabled]="isLoading">Login</button>
       </div>
       <div class="toggle-panel right-toggle" *ngIf="!isRegistering">
         <h2 class="h-two-class">Que bom te ver aqui!</h2>
         <p>Registre-se para ter acesso às funcionalidades disponíveis!</p>
-        <button class="hidden-class" (click)="toggle(true)">Registrar-se</button>
+        <button class="hidden-class" (click)="toggle(true)" [disabled]="isLoading">Registrar-se</button>
       </div>
     </div>
   </div>

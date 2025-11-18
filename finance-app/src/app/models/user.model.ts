@@ -2,9 +2,9 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  password?: string;
+  password: string;
   photoUrl?: string;
-  createdAt?: Date;
+  createdAt?: string;
 }
 
 export interface AuthResponse {

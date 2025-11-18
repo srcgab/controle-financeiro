@@ -43,6 +43,16 @@
      text-transform: uppercase;
      margin-top: 10px;
      cursor: pointer;
+     transition: opacity 0.3s ease;
+}
+
+.container-login button:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.container-login button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .container-login button.hidden-class {
@@ -183,6 +193,75 @@
     transform: translateX(200%);
 }
 
-#login-msg {}
+.validation-errors {
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px 12px;
+    background-color: #ffebee;
+    border-left: 3px solid #f44336;
+    border-radius: 4px;
+}
 
-#register-msg {}
+.error-text {
+    color: #c62828;
+    font-size: 12px;
+    margin: 3px 0;
+    line-height: 1.4;
+}
+
+.feedback {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.feedback.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef5350;
+}
+
+.feedback.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #66bb6a;
+}
+
+.feedback.info {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #42a5f5;
+}
+
+.password-requirements {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.password-requirements small {
+    color: #b0bec5;
+    font-size: 11px;
+    font-style: italic;
+}
+
+.container-login input:focus {
+    box-shadow: 0 0 0 2px rgba(50, 67, 156, 0.2);
+}
+
+.container-login input:invalid:not(:placeholder-shown) {
+    border: 1px solid #f44336;
+}
+
+.container-login input:valid:not(:placeholder-shown) {
+    border: 1px solid #4caf50;
+}
+
+.container-login input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
