@@ -51,83 +51,83 @@
       "salaryAutoAddDay": 1
     }
   ],
-  "categories": [
+    "categories": [
     {
       "id": 1,
       "name": "Alimentação",
       "type": "expense",
       "color": "#FF6B6B",
-      "icon": "🍔"
+      "icon": ""
     },
     {
       "id": 2,
       "name": "Transporte",
       "type": "expense",
       "color": "#4ECDC4",
-      "icon": "🚗"
+      "icon": ""
     },
     {
       "id": 3,
       "name": "Moradia",
       "type": "expense",
       "color": "#45B7D1",
-      "icon": "🏠"
+      "icon": ""
     },
     {
       "id": 4,
       "name": "Saúde",
       "type": "expense",
       "color": "#96CEB4",
-      "icon": "⚕️"
+      "icon": ""
     },
     {
       "id": 5,
       "name": "Educação",
       "type": "expense",
       "color": "#FFEAA7",
-      "icon": "📚"
+      "icon": ""
     },
     {
       "id": 6,
       "name": "Lazer",
       "type": "expense",
       "color": "#DFE6E9",
-      "icon": "🎮"
+      "icon": ""
     },
     {
       "id": 7,
       "name": "Outros",
       "type": "expense",
       "color": "#A29BFE",
-      "icon": "📦"
+      "icon": ""
     },
     {
       "id": 8,
       "name": "Salário",
       "type": "income",
       "color": "#00B894",
-      "icon": "💰"
+      "icon": ""
     },
     {
       "id": 9,
       "name": "Freelance",
       "type": "income",
       "color": "#00CEC9",
-      "icon": "💼"
+      "icon": ""
     },
     {
       "id": 10,
       "name": "Investimentos",
       "type": "income",
       "color": "#FDCB6E",
-      "icon": "📈"
+      "icon": ""
     },
     {
       "id": 11,
       "name": "Outros",
       "type": "income",
       "color": "#6C5CE7",
-      "icon": "💵"
+      "icon": ""
     }
   ],
   "transactions": [
