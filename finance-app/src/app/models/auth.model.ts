@@ -4,6 +4,10 @@ export interface User {
   email: string;
   passwordHash: string;
   photoUrl?: string;
+  monthlyIncome?: number;
+  salaryAutoAddEnabled?: boolean;
+  salaryAutoAddDay?: number;
+  lastSalaryAddDate?: string;
   createdAt?: string;
   updatedAt?: string;
   lastLoginAt?: string;
@@ -14,6 +18,10 @@ export interface UserPublic {
   name: string;
   email: string;
   photoUrl?: string;
+  monthlyIncome?: number;
+  salaryAutoAddEnabled?: boolean;
+  salaryAutoAddDay?: number;
+  lastSalaryAddDate?: string;
   createdAt?: string;
   lastLoginAt?: string;
 }

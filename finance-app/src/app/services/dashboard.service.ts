@@ -12,6 +12,8 @@ interface Goal {
   userId: number;
   targetAmount: number;
   currentAmount: number;
+  reservedAmount?: number;
+  goalName: string;
   description: string;
   createdAt: string;
 }
@@ -24,6 +26,8 @@ export class DashboardService {
   private financialGoalSubject = new BehaviorSubject({
     targetAmount: 10000,
     currentAmount: 0,
+    reservedAmount: 0,
+    goalName: 'Meta de Economia',
     progressPercentage: 0
   });
 
@@ -48,6 +52,8 @@ export class DashboardService {
           this.financialGoalSubject.next({
             targetAmount: goal.targetAmount,
             currentAmount: goal.currentAmount,
+            reservedAmount: goal.reservedAmount || 0,
+            goalName: goal.goalName || 'Meta de Economia',
             progressPercentage: (goal.currentAmount / goal.targetAmount) * 100
           });
         }
@@ -58,6 +64,7 @@ export class DashboardService {
 
   getDashboardSummary(period: string = 'Este mês'): Observable<DashboardSummary> {
     const dateRange = this.getDateRangeByPeriod(period);
+    const currentUser = this.authService.getCurrentUser();
     
     return forkJoin({
       income: this.transactionService.getTotalIncome(dateRange.start, dateRange.end),
@@ -68,13 +75,14 @@ export class DashboardService {
         currentBalance: result.balance,
         totalIncome: result.income,
         totalExpense: result.expense,
+        monthlyIncome: currentUser?.monthlyIncome || 0,
         period,
         financialGoal: this.financialGoalSubject.getValue()
       }))
     );
   }
 
-  updateFinancialGoal(targetAmount: number): Observable<boolean> {
+  updateFinancialGoal(targetAmount: number, goalName?: string): Observable<boolean> {
     const currentUser = this.authService.getCurrentUser();
     if (!currentUser) {
       throw new Error('Usuário não autenticado');
@@ -88,23 +96,84 @@ export class DashboardService {
         const updatedGoal = {
           targetAmount,
           currentAmount: current.currentAmount,
+          reservedAmount: current.reservedAmount || 0,
+          goalName: goalName || current.goalName,
           progressPercentage
         };
 
         if (goals.length > 0) {
-          this.http.patch(`${this.apiUrl}/${goals[0].id}`, {
+          const updateData: any = {
             targetAmount,
-            currentAmount: current.currentAmount
-          }).subscribe();
+            currentAmount: current.currentAmount,
+            reservedAmount: current.reservedAmount || 0
+          };
+          if (goalName) {
+            updateData.goalName = goalName;
+          }
+          
+          this.http.patch(`${this.apiUrl}/${goals[0].id}`, updateData).subscribe();
         } else {
           this.http.post(this.apiUrl, {
             userId: currentUser.id,
             targetAmount,
             currentAmount: current.currentAmount,
+            reservedAmount: 0,
+            goalName: goalName || 'Meta de Economia',
             description: 'Meta de economia',
             createdAt: new Date().toISOString()
           }).subscribe();
         }
+
+        this.financialGoalSubject.next(updatedGoal);
+        return true;
+      })
+    );
+  }
+
+  addReservedAmount(amount: number): Observable<boolean> {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('Usuário não autenticado');
+    }
+
+    return this.http.get<Goal[]>(`${this.apiUrl}?userId=${currentUser.id}`).pipe(
+      map(goals => {
+        if (goals.length === 0) {
+          throw new Error('Nenhuma meta financeira encontrada');
+        }
+
+        const goal = goals[0];
+        const current = this.financialGoalSubject.getValue();
+        const newReservedAmount = (current.reservedAmount || 0) + amount;
+        const newCurrentAmount = current.currentAmount + amount;
+        const progressPercentage = (newCurrentAmount / current.targetAmount) * 100;
+
+        const updatedGoal = {
+          targetAmount: current.targetAmount,
+          currentAmount: newCurrentAmount,
+          reservedAmount: newReservedAmount,
+          goalName: current.goalName,
+          progressPercentage
+        };
+
+        // Create an expense transaction for the reserved amount
+        const reserveTransaction = {
+          userId: currentUser.id,
+          type: 'expense' as const,
+          amount: amount,
+          category: 'Reserva Meta',
+          description: `Valor reservado para: ${current.goalName}`,
+          date: new Date(),
+          createdAt: new Date().toISOString()
+        };
+
+        // Update goal and create transaction
+        this.http.patch(`${this.apiUrl}/${goal.id}`, {
+          currentAmount: newCurrentAmount,
+          reservedAmount: newReservedAmount
+        }).subscribe();
+
+        this.transactionService.createTransaction(reserveTransaction).subscribe();
 
         this.financialGoalSubject.next(updatedGoal);
         return true;

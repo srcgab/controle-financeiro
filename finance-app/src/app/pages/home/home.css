@@ -147,6 +147,21 @@
   color: white;
 }
 
+.btn-salary {
+  background: linear-gradient(to right, #8b5cf6, #7c3aed);
+}
+
+.btn-salary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.4);
+}
+
+.btn-salary:disabled {
+  background: #c4b5fd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .btn-income {
   background: linear-gradient(to right, #9fa6d0, #4258c24f);
 }
@@ -420,4 +435,111 @@
 
 .btn-secondary:hover {
   background: #d0d0d0;
+}
+
+.monthly-income-card {
+  border-left: 4px solid #8b5cf6;
+  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+}
+
+.btn-add-salary {
+  background: #8b5cf6;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-add-salary:hover:not(:disabled) {
+  background: #7c3aed;
+  transform: translateY(-2px);
+}
+
+.btn-add-salary:disabled {
+  background: #c4b5fd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.income-amount {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 10px 0;
+  color: #6d28d9;
+}
+
+.income-hint {
+  font-size: 13px;
+  color: #6d28d9;
+  margin: 5px 0 0 0;
+  font-style: italic;
+}
+
+.reserve-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.reserve-input-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.reserve-input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.reserve-input:focus {
+  border-color: #32439c;
+  outline: none;
+}
+
+.btn-add-reserve {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(to right, #1B1F32, #2A3B5F);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-add-reserve:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-add-reserve:disabled {
+  background: #c4c4c4;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.plus-icon {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.reserve-hint {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #32439c;
+  font-weight: 600;
 }

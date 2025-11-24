@@ -30,6 +30,14 @@
       </div>
       
       <div class="compact-action-buttons">
+        <button 
+          *ngIf="showSalaryButton()"
+          class="btn btn-compact btn-salary" 
+          (click)="addSalaryToIncome()"
+          [disabled]="!canAddSalary() || isAddingSalary"
+          [title]="canAddSalary() ? 'Adicionar salário às receitas' : 'Salário já adicionado este mês'">
+          {{ isAddingSalary ? 'Adicionando...' : 'Adicionar Salário' }}
+        </button>
         <button class="btn btn-compact btn-income" (click)="navigateToAddIncome()">
           Nova Receita
         </button>
@@ -90,7 +98,7 @@
 
     <div class="card goal-card" *ngIf="dashboardData.financialGoal">
       <div class="card-header">
-        <h3>Meta Financeira</h3>
+        <h3>{{ dashboardData.financialGoal.goalName || 'Meta Financeira' }}</h3>
         <button class="btn-edit-goal" (click)="openEditGoal()" *ngIf="!isEditingGoal">
           Alterar Meta
         </button>
@@ -120,11 +128,41 @@
           </div>
         </div>
         <p class="goal-status">{{ getGoalStatusText() }}</p>
+        
+        <div class="reserve-section">
+          <div class="reserve-input-group">
+            <input 
+              type="number" 
+              [(ngModel)]="reserveAmount" 
+              class="reserve-input"
+              placeholder="Valor a reservar"
+              min="0"
+              step="0.01">
+            <button 
+              class="btn-add-reserve" 
+              (click)="addReserveToGoal()"
+              [disabled]="isAddingReserve || reserveAmount <= 0"
+              title="Adicionar à reserva">
+              <span class="plus-icon">+</span>
+            </button>
+          </div>
+          <p class="reserve-hint" *ngIf="dashboardData.financialGoal.reservedAmount && dashboardData.financialGoal.reservedAmount > 0">
+            Total reservado: R$ {{ dashboardData.financialGoal.reservedAmount | number:'1.2-2' }}
+          </p>
+        </div>
       </div>
 
       <div class="card-body" *ngIf="isEditingGoal">
         <div class="edit-goal-form">
-          <label for="goalAmount">Nova meta mensal (R$):</label>
+          <label for="goalName">Nome da meta:</label>
+          <input 
+            type="text" 
+            id="goalName" 
+            [(ngModel)]="newGoalName" 
+            class="goal-input"
+            placeholder="Ex: Meta de Economia">
+          
+          <label for="goalAmount">Valor da meta (R$):</label>
           <input 
             type="number" 
             id="goalAmount" 

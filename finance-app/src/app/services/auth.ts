@@ -331,6 +331,10 @@ export class AuthService {
           name: user.name,
           email: user.email,
           photoUrl: user.photoUrl,
+          monthlyIncome: user.monthlyIncome,
+          salaryAutoAddEnabled: user.salaryAutoAddEnabled,
+          salaryAutoAddDay: user.salaryAutoAddDay,
+          lastSalaryAddDate: user.lastSalaryAddDate,
           createdAt: user.createdAt,
           lastLoginAt: user.lastLoginAt
         };
@@ -421,6 +425,22 @@ export class AuthService {
       sanitizedUpdates.photoUrl = sanitizeInput(updates.photoUrl);
     }
 
+    if (updates.monthlyIncome !== undefined) {
+      sanitizedUpdates.monthlyIncome = updates.monthlyIncome;
+    }
+
+    if (updates.salaryAutoAddEnabled !== undefined) {
+      sanitizedUpdates.salaryAutoAddEnabled = updates.salaryAutoAddEnabled;
+    }
+
+    if (updates.salaryAutoAddDay !== undefined) {
+      sanitizedUpdates.salaryAutoAddDay = updates.salaryAutoAddDay;
+    }
+
+    if (updates.lastSalaryAddDate !== undefined) {
+      sanitizedUpdates.lastSalaryAddDate = updates.lastSalaryAddDate;
+    }
+
     sanitizedUpdates.updatedAt = new Date().toISOString();
 
     return this.http.patch<User>(`${this.apiUrl}/${userId}`, sanitizedUpdates).pipe(
@@ -430,6 +450,10 @@ export class AuthService {
           name: user.name,
           email: user.email,
           photoUrl: user.photoUrl,
+          monthlyIncome: user.monthlyIncome,
+          salaryAutoAddEnabled: user.salaryAutoAddEnabled,
+          salaryAutoAddDay: user.salaryAutoAddDay,
+          lastSalaryAddDate: user.lastSalaryAddDate,
           createdAt: user.createdAt,
           lastLoginAt: user.lastLoginAt
         };

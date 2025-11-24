@@ -186,7 +186,9 @@ export class Login implements OnDestroy {
         this.cadastroSenhaConfirm = '';
         
         setTimeout(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/profile'], { 
+            queryParams: { newUser: 'true' } 
+          });
         }, 500);
       },
       error: (err) => {

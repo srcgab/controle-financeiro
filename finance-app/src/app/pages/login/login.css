@@ -2,7 +2,10 @@
     background-color: #5372ff4f;
     box-shadow: inset 0px 0px 20px 7px rgb(255 255 255 / 8%);
     border-radius: 25px;
-    position: relative;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
     overflow: hidden;
     width: 768px;
     max-width: 100%;

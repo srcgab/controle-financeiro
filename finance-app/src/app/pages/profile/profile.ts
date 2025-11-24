@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService, User } from '../../services/auth';
+import { SalarySchedulerService } from '../../services/salary-scheduler.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,7 @@ export class Profile implements OnInit {
   currentUser: User | null = null;
   isLoading = false;
   isEditing = false;
+  isNewUser = false;
   feedback = '';
   feedbackType: 'success' | 'error' = 'success';
   selectedFile: File | null = null;
@@ -24,7 +26,9 @@ export class Profile implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private salaryScheduler: SalarySchedulerService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +39,14 @@ export class Profile implements OnInit {
       return;
     }
 
+    this.route.queryParams.subscribe(params => {
+      this.isNewUser = params['newUser'] === 'true';
+      if (this.isNewUser) {
+        this.isEditing = true;
+        this.showFeedback('Complete seu perfil com suas informações!', 'success');
+      }
+    });
+
     this.initializeForm();
   }
 
@@ -42,7 +54,10 @@ export class Profile implements OnInit {
     this.profileForm = this.fb.group({
       name: [this.currentUser?.name || '', [Validators.required, Validators.minLength(3)]],
       email: [{ value: this.currentUser?.email || '', disabled: true }],
-      photoUrl: [this.currentUser?.photoUrl || '']
+      photoUrl: [this.currentUser?.photoUrl || ''],
+      monthlyIncome: [this.currentUser?.monthlyIncome || 0, [Validators.min(0)]],
+      salaryAutoAddEnabled: [this.currentUser?.salaryAutoAddEnabled || false],
+      salaryAutoAddDay: [this.currentUser?.salaryAutoAddDay || 1, [Validators.min(1), Validators.max(31)]]
     });
   }
 
@@ -94,11 +109,18 @@ export class Profile implements OnInit {
     this.feedback = '';
 
     const updates: Partial<User> = {
-      name: this.profileForm.get('name')?.value
+      name: this.profileForm.get('name')?.value,
+      monthlyIncome: this.profileForm.get('monthlyIncome')?.value,
+      salaryAutoAddEnabled: this.profileForm.get('salaryAutoAddEnabled')?.value,
+      salaryAutoAddDay: this.profileForm.get('salaryAutoAddDay')?.value
     };
+    
     if (this.previewUrl) {
       updates.photoUrl = this.previewUrl;
     }
+
+    // Verificar se o auto-add foi habilitado agora
+    const autoAddJustEnabled = updates.salaryAutoAddEnabled && !this.currentUser.salaryAutoAddEnabled;
 
     this.authService.updateUser(this.currentUser.id, updates).subscribe({
       next: (updatedUser) => {
@@ -109,6 +131,17 @@ export class Profile implements OnInit {
         this.previewUrl = null;
         this.showFeedback('Perfil atualizado com sucesso!', 'success');
         this.initializeForm();
+        
+        // Se o usuário acabou de ativar o auto-add, verificar se é o dia de adicionar o salário
+        if (autoAddJustEnabled) {
+          this.salaryScheduler.checkAndAddSalaryNow();
+        }
+        
+        if (this.isNewUser) {
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 2000);
+        }
       },
       error: (error) => {
         this.isLoading = false;
@@ -156,5 +189,17 @@ export class Profile implements OnInit {
   get isNameInvalid(): boolean {
     const control = this.nameControl;
     return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
+  get monthlyIncomeControl() {
+    return this.profileForm.get('monthlyIncome');
+  }
+
+  get salaryAutoAddDayControl() {
+    return this.profileForm.get('salaryAutoAddDay');
+  }
+
+  get isSalaryAutoAddEnabled(): boolean {
+    return this.profileForm.get('salaryAutoAddEnabled')?.value || false;
   }
 }

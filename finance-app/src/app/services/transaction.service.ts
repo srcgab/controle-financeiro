@@ -44,6 +44,10 @@ export class TransactionService {
     return this.http.post<Transaction>(this.apiUrl, newTransaction);
   }
 
+  createTransaction(transaction: Omit<Transaction, 'id'>): Observable<Transaction> {
+    return this.addTransaction(transaction);
+  }
+
   getTransactions(filter?: {
     type?: 'income' | 'expense';
     startDate?: Date;

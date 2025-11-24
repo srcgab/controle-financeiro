@@ -80,6 +80,49 @@
             <p class="field-hint">O e-mail não pode ser alterado</p>
           </div>
 
+          <div class="form-group">
+            <label for="monthlyIncome" class="form-label">
+              Renda Mensal (R$)
+            </label>
+            <input
+              type="number"
+              id="monthlyIncome"
+              formControlName="monthlyIncome"
+              class="form-input"
+              [readonly]="!isEditing"
+              placeholder="Digite sua renda mensal"
+              min="0"
+              step="0.01">
+            <p class="field-hint">Sua renda mensal será usada para facilitar o controle financeiro</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label checkbox-label">
+              <input
+                type="checkbox"
+                formControlName="salaryAutoAddEnabled"
+                [disabled]="!isEditing">
+              <span>Adicionar salário automaticamente</span>
+            </label>
+            <p class="field-hint">Se ativado, seu salário será adicionado automaticamente às receitas todo mês</p>
+          </div>
+
+          <div class="form-group" *ngIf="isSalaryAutoAddEnabled">
+            <label for="salaryAutoAddDay" class="form-label">
+              Dia do Pagamento
+            </label>
+            <input
+              type="number"
+              id="salaryAutoAddDay"
+              formControlName="salaryAutoAddDay"
+              class="form-input"
+              [readonly]="!isEditing"
+              placeholder="Dia do mês (1-31)"
+              min="1"
+              max="31">
+            <p class="field-hint">Dia do mês em que seu salário deve ser adicionado automaticamente</p>
+          </div>
+
           <div *ngIf="feedback" 
                class="feedback-message" 
                [class.feedback-success]="feedbackType === 'success'"
