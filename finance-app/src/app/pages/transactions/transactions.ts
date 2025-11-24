@@ -156,7 +156,7 @@ export class Transactions implements OnInit {
 
   getCategoryIcon(categoryName: string): string {
     const category = this.categories.find(c => c.name === categoryName);
-    return category?.icon || '💰';
+    return category?.icon || '';
   }
 
   getTotalIncome(): number {

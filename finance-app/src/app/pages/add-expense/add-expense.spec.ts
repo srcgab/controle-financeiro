@@ -34,8 +34,8 @@ describe('AddExpense', () => {
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
 
     categoryService.getExpenseCategories.and.returnValue(of([
-      { id: 6, name: 'Alimentação', type: 'expense', icon: '🍔' },
-      { id: 7, name: 'Transporte', type: 'expense', icon: '🚗' }
+      { id: 6, name: 'Alimentação', type: 'expense', icon: '' },
+      { id: 7, name: 'Transporte', type: 'expense', icon: '' }
     ]));
   });
 

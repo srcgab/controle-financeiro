@@ -34,8 +34,8 @@ describe('AddIncome', () => {
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
 
     categoryService.getIncomeCategories.and.returnValue(of([
-      { id: 1, name: 'Salário', type: 'income', icon: '💼' },
-      { id: 2, name: 'Freelance', type: 'income', icon: '💻' }
+      { id: 1, name: 'Salário', type: 'income', icon: '' },
+      { id: 2, name: 'Freelance', type: 'income', icon: '' }
     ]));
   });
 
