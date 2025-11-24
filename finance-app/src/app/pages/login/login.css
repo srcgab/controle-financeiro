@@ -2,14 +2,15 @@
     background-color: #5372ff4f;
     box-shadow: inset 0px 0px 20px 7px rgb(255 255 255 / 8%);
     border-radius: 25px;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: hidden;
     width: 768px;
     max-width: 100%;
     min-height: 480px;
+    z-index: 1;
 }
 
 .container-login p {
@@ -247,7 +248,7 @@
 }
 
 .password-requirements small {
-    color: #b0bec5;
+    color: #fff;
     font-size: 11px;
     font-style: italic;
 }
