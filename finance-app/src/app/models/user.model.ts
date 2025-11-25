@@ -5,6 +5,10 @@ export interface User {
   password: string;
   photoUrl?: string;
   createdAt?: string;
+  monthlyIncome?: number;
+  salaryAutoAddEnabled?: boolean;
+  salaryAutoAddDay?: number;
+  lastSalaryAddDate?: string;
 }
 
 export interface AuthResponse {

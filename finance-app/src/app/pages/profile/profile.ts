@@ -202,4 +202,16 @@ export class Profile implements OnInit {
   get isSalaryAutoAddEnabled(): boolean {
     return this.profileForm.get('salaryAutoAddEnabled')?.value || false;
   }
+
+  getMemberSinceDate(): string {
+    if (!this.currentUser?.createdAt) {
+      return 'Data não disponível';
+    }
+    
+    const date = new Date(this.currentUser.createdAt);
+    return date.toLocaleDateString('pt-BR', { 
+      year: 'numeric', 
+      month: 'long' 
+    });
+  }
 }
