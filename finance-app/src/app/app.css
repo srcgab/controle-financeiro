@@ -1,0 +1,8 @@
+/* Main content area */
+.main-content {
+  min-height: 100vh;
+}
+
+.main-content.with-header {
+  /* Header is sticky, no additional margin needed */
+}

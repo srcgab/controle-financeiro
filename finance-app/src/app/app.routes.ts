@@ -5,7 +5,6 @@ import { Transactions } from './pages/transactions/transactions';
 import { AddIncome } from './pages/add-income/add-income';
 import { AddExpense } from './pages/add-expense/add-expense';
 import { Profile } from './pages/profile/profile';
-import { About } from './pages/about/about';
 import { Developers } from './pages/developers/developers';
 import { authGuard } from './guards/auth.guard';
 
@@ -36,10 +35,6 @@ export const routes: Routes = [
     path: 'profile', 
     component: Profile,
     canActivate: [authGuard]
-  },
-  { 
-    path: 'about', 
-    component: About
   },
   { 
     path: 'developers', 

@@ -4,11 +4,12 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService, User } from '../../services/auth';
 import { SalarySchedulerService } from '../../services/salary-scheduler.service';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, Header],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
@@ -213,9 +214,5 @@ export class Profile implements OnInit {
       year: 'numeric', 
       month: 'long' 
     });
-  }
-
-  navigateToDevelopers(): void {
-    this.router.navigate(['/developers']);
   }
 }

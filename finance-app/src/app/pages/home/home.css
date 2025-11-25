@@ -5,68 +5,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  padding: 20px;
-  background: linear-gradient(to right, #1B1F32, #2A3B5F);
-  border-radius: 12px;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.header-content h1 {
-  margin: 0;
-  font-size: 28px;
-  font-weight: 600;
-}
-
-.header-subtitle {
-  margin: 5px 0 0 0;
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-.header-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-profile {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-profile:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-.btn-logout {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-logout:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
+/* Header styles removed - now using app-header component */
 
 .loading-container {
   text-align: center;

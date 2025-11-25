@@ -1,18 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth';
 import { SalarySchedulerService } from './services/salary-scheduler.service';
-import { Router } from '@angular/router';
+import { Header } from './components/header/header';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, Header],
   templateUrl: './app.html'
 })
 export class App implements OnInit, OnDestroy {
   isLogged = false;
+  showHeader = false;
   
   constructor(
     private auth: AuthService, 
@@ -21,6 +23,7 @@ export class App implements OnInit, OnDestroy {
   ) {
     this.auth.currentUser$.subscribe(u => {
       this.isLogged = !!u;
+      this.updateHeaderVisibility();
       
       if (u) {
         // Iniciar o scheduler quando o usuário fizer login
@@ -30,6 +33,13 @@ export class App implements OnInit, OnDestroy {
         this.salaryScheduler.stopScheduler();
       }
     });
+
+    // Listen to route changes to update header visibility
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateHeaderVisibility();
+    });
   }
 
   ngOnInit(): void {
@@ -37,10 +47,16 @@ export class App implements OnInit, OnDestroy {
     if (this.auth.isAuthenticated()) {
       this.salaryScheduler.startScheduler();
     }
+    this.updateHeaderVisibility();
   }
 
   ngOnDestroy(): void {
     this.salaryScheduler.stopScheduler();
+  }
+
+  private updateHeaderVisibility() {
+    // Show header only when user is logged and not on login page
+    this.showHeader = this.isLogged && this.router.url !== '/login';
   }
 
   logout() {

@@ -6,11 +6,12 @@ import { AuthService } from '../../services/auth';
 import { DashboardService } from '../../services/dashboard.service';
 import { TransactionService } from '../../services/transaction.service';
 import { DashboardSummary } from '../../models/dashboard.model';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Header],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })

@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { TransactionService } from '../../services/transaction.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-add-income',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Header],
   templateUrl: './add-income.html',
   styleUrls: ['./add-income.css']
 })

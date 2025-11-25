@@ -7,11 +7,12 @@ import { CategoryService } from '../../services/category.service';
 import { Transaction } from '../../models/transaction.model';
 import { Category } from '../../models/category.model';
 import { IconComponent } from '../../utils/icon.component';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, IconComponent],
+  imports: [CommonModule, RouterModule, FormsModule, IconComponent, Header],
   templateUrl: './transactions.html',
   styleUrls: ['./transactions.css']
 })

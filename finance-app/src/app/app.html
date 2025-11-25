@@ -1,8 +1,7 @@
-<!-- <nav class="top-nav">
-  <br><a routerLink="/login">Login</a>
-  <br><a routerLink="/home">Transações</a>
-  <br><a routerLink="/home">Home</a>
-  <br><button (click)="logout()" *ngIf="isLogged">Sair</button>
-</nav> -->
+<!-- Header component - only show when user is authenticated and not on login page -->
+<app-header *ngIf="showHeader"></app-header>
 
-<router-outlet></router-outlet>
+<!-- Main content area -->
+<div class="main-content" [class.with-header]="showHeader">
+  <router-outlet></router-outlet>
+</div>

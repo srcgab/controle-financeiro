@@ -1,15 +1,4 @@
 <div class="profile-container">
-  <header class="profile-header">
-    <div class="header-content">
-      <button class="btn-back" (click)="goBack()">
-        Voltar
-      </button>
-      <h1>Meu Perfil</h1>
-      <p class="header-subtitle">Gerencie suas informações pessoais</p>
-    </div>
-    <button class="btn-logout" (click)="logout()">Sair</button>
-  </header>
-
   <div *ngIf="isLoading" class="loading-container">
     <div class="spinner"></div>
     <p>Atualizando perfil...</p>
@@ -174,10 +163,11 @@
       </div>
       
       <div class="support-section">
-        <h3>Suporte e Desenvolvimento</h3>
-        <button class="btn btn-support" (click)="navigateToDevelopers()">
-          Desenvolvedores e Suporte
-        </button>
+        <h3>Informações de Suporte</h3>
+        <p class="support-info">
+          Para suporte técnico e informações sobre desenvolvimento, 
+          acesse a seção "Desenvolvedores" através do menu principal.
+        </p>
       </div>
     </div>
   </div>

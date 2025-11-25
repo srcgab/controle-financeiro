@@ -1,78 +1,35 @@
 {
   "sessions": [
     {
-      "userId": 2,
-      "token": "cc500823c43d60cf18d5f2e57983418ac04bb3ece6f4e03a2857bca0a461105f",
-      "expiresAt": 1764099142997,
-      "createdAt": 1764012742997,
-      "id": 1
-    },
-    {
-      "userId": 3,
-      "token": "761a29a94a8de4dd10ca2bc5732475368fd61202d183de71e0d31e21866a4373",
-      "expiresAt": 1764099780223,
-      "createdAt": 1764013380223,
+      "userId": 6,
+      "token": "bb43f65630251bcedaf4dda42b3f751ec623b8ce1c42f6716c5294f8c634bef3",
+      "expiresAt": 1764191190816,
+      "createdAt": 1764104790816,
       "id": 2
     },
     {
-      "userId": 4,
-      "token": "3b6a9699ee6283b6933e715485594d00f75d8495fb34793e7c28475f2cfcb165",
-      "expiresAt": 1764109010206,
-      "createdAt": 1764022610206,
+      "userId": 6,
+      "token": "fcd9fdcc1d905942dc9635ef755ca3bfb5f730f3b443f3295916a115869ee6b7",
+      "expiresAt": 1764195270301,
+      "createdAt": 1764108870301,
       "id": 3
     },
     {
-      "userId": 5,
-      "token": "fc2e79a4c5eab1fabee340a35b624325ff4804141d28cdfce08e26686a39d68d",
-      "expiresAt": 1764109263603,
-      "createdAt": 1764022863603,
+      "userId": 6,
+      "token": "f576e56e8fda7125726204f566137414a51d91b71ef2b348edc167f411eb7d96",
+      "expiresAt": 1764195552923,
+      "createdAt": 1764109152923,
       "id": 4
+    },
+    {
+      "userId": 6,
+      "token": "1aa3ff3b33491c898889056d6c0a3c2f3288a5c5a93b43387c0dfe84037d8ef6",
+      "expiresAt": 1764195888721,
+      "createdAt": 1764109488721,
+      "id": 5
     }
   ],
   "users": [
-    {
-      "id": 1,
-      "name": "Usuário Demo",
-      "email": "demo@exemplo.com",
-      "passwordHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
-      "monthlyIncome": 5000,
-      "salaryDay": 5,
-      "createdAt": "2025-11-01T00:00:00.000Z"
-    },
-    {
-      "name": "tegs",
-      "email": "tegs@gmail.com",
-      "passwordHash": "de45ff1027887635a89fd49375c76b9083f92cd9fb5a07bff29833e59ee679fb",
-      "photoUrl": "",
-      "createdAt": "2025-11-24T19:32:22.960Z",
-      "updatedAt": "2025-11-24T19:33:08.024Z",
-      "id": 2,
-      "monthlyIncome": 67323,
-      "salaryAutoAddEnabled": false,
-      "salaryAutoAddDay": 1,
-      "lastSalaryAddDate": "2025-11-24"
-    },
-    {
-      "name": "test",
-      "email": "tegs34@gmail.com",
-      "passwordHash": "3d6059f6571437dc84d9fb947b654902e76c002b728ad8c7fd9c3c6353a0e648",
-      "photoUrl": "",
-      "createdAt": "2025-11-24T19:43:00.188Z",
-      "updatedAt": "2025-11-24T19:43:37.602Z",
-      "id": 3,
-      "monthlyIncome": 1333,
-      "salaryAutoAddEnabled": false,
-      "salaryAutoAddDay": 1
-    },
-    {
-      "name": "Teste",
-      "email": "teste@teste233.com",
-      "passwordHash": "3d6059f6571437dc84d9fb947b654902e76c002b728ad8c7fd9c3c6353a0e648",
-      "photoUrl": "",
-      "createdAt": "2025-11-24T22:16:50.177Z",
-      "updatedAt": "2025-11-24T22:16:50.177Z",
-      "id": 4
-    },
     {
       "name": "Teset",
       "email": "teste@gmail.com",
@@ -86,17 +43,18 @@
       "salaryAutoAddDay": 1
     },
     {
-      "name": "test",
-      "email": "teste56@gmail.com",
-      "passwordHash": "956d0f12896970589cb5a433bbd1a263b4bf57bf0ea42f4541c852d6fd8d0d8d",
+      "name": "Teste",
+      "email": "teste@teste.com",
+      "passwordHash": "a3ecfe5c36a1ac79f299690e8dc2e469b69d1836fa11baaedfe38703e995ea06",
       "photoUrl": "",
-      "createdAt": "2025-11-24T22:47:22.182Z",
-      "updatedAt": "2025-11-24T22:50:16.770Z",
+      "createdAt": "2025-11-25T21:06:30.568Z",
+      "updatedAt": "2025-11-25T22:24:48.718Z",
       "id": 6,
-      "monthlyIncome": 2999,
-      "salaryAutoAddEnabled": false,
-      "salaryAutoAddDay": null,
-      "lastSalaryAddDate": "2025-11-24"
+      "monthlyIncome": 1350,
+      "salaryAutoAddEnabled": true,
+      "salaryAutoAddDay": 25,
+      "lastSalaryAddDate": "2025-11-25",
+      "lastLoginAt": "2025-11-25T22:24:48.718Z"
     }
   ],
   "categories": [
@@ -180,66 +138,36 @@
   ],
   "transactions": [
     {
-      "id": 1,
-      "userId": 1,
-      "categoryId": 1,
-      "type": "expense",
-      "amount": 150,
-      "description": "Supermercado",
-      "date": "2025-11-15",
-      "createdAt": "2025-11-15T10:30:00.000Z"
-    },
-    {
-      "id": 2,
-      "userId": 1,
-      "categoryId": 2,
-      "type": "expense",
-      "amount": 80,
-      "description": "Combustível",
-      "date": "2025-11-16",
-      "createdAt": "2025-11-16T14:20:00.000Z"
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "categoryId": 3,
-      "type": "expense",
-      "amount": 1200,
-      "description": "Aluguel",
-      "date": "2025-11-05",
-      "createdAt": "2025-11-05T08:00:00.000Z"
-    },
-    {
-      "id": 4,
-      "userId": 1,
-      "categoryId": 8,
+      "userId": 6,
       "type": "income",
-      "amount": 5000,
-      "description": "Salário Mensal",
-      "date": "2025-11-05",
-      "createdAt": "2025-11-05T00:00:00.000Z"
-    },
-    {
-      "userId": 2,
-      "type": "income",
-      "amount": 67323,
+      "amount": 1350,
       "category": "Salário",
-      "description": "Salário mensal",
-      "date": "2025-11-24",
-      "createdAt": "2025-11-24T19:33:07.993Z",
-      "id": 5
+      "description": "Salário mensal (adicionado automaticamente)",
+      "date": "2025-11-25",
+      "createdAt": "2025-11-25T21:08:29.901Z",
+      "id": 6
+    },
+    {
+      "userId": 6,
+      "type": "expense",
+      "amount": 10,
+      "category": "Reserva Meta",
+      "description": "Valor reservado para: Meta de Economia",
+      "date": "2025-11-25",
+      "createdAt": "2025-11-25T21:40:33.567Z",
+      "id": 7
     }
   ],
   "goals": [
     {
       "userId": 6,
       "targetAmount": 1000,
-      "currentAmount": 599,
-      "reservedAmount": 599,
-      "goalName": "Teste",
+      "currentAmount": 210,
+      "reservedAmount": 210,
+      "goalName": "Meta de Economia",
       "description": "Meta de economia",
-      "createdAt": "2025-11-24T22:52:01.461Z",
-      "id": 1
+      "createdAt": "2025-11-25T21:13:42.537Z",
+      "id": 2
     }
   ]
 }

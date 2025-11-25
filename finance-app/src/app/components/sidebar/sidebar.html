@@ -1,0 +1,130 @@
+<div class="sidebar-overlay" [class.open]="isOpen" (click)="closeSidebar()"></div>
+
+<aside class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    <button class="close-btn" (click)="closeSidebar()" aria-label="Fechar menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="user-info">
+      <div class="user-avatar">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <div class="user-details">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-role">Usuário</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a 
+          routerLink="/home" 
+          class="nav-link" 
+          [class.active]="isActiveRoute('/home')"
+          (click)="closeSidebar()">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9,22 9,12 15,12 15,22"></polyline>
+          </svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          routerLink="/transactions" 
+          class="nav-link" 
+          [class.active]="isActiveRoute('/transactions')"
+          (click)="closeSidebar()">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="m17 5-5 5-5-5"></path>
+            <path d="m17 19-5-5-5 5"></path>
+          </svg>
+          <span class="nav-text">Transações</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          routerLink="/add-income" 
+          class="nav-link" 
+          [class.active]="isActiveRoute('/add-income')"
+          (click)="closeSidebar()">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="nav-text">Nova Receita</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          routerLink="/add-expense" 
+          class="nav-link" 
+          [class.active]="isActiveRoute('/add-expense')"
+          (click)="closeSidebar()">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="nav-text">Nova Despesa</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          routerLink="/profile" 
+          class="nav-link" 
+          [class.active]="isActiveRoute('/profile')"
+          (click)="closeSidebar()">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="nav-text">Perfil</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          routerLink="/developers" 
+          class="nav-link" 
+          [class.active]="isActiveRoute('/developers')"
+          (click)="closeSidebar()">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16,18 22,12 16,6"></polyline>
+            <polyline points="8,6 2,12 8,18"></polyline>
+          </svg>
+          <span class="nav-text">Desenvolvedores</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="logout-btn" (click)="logout()">
+      <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+        <polyline points="16,17 21,12 16,7"></polyline>
+        <line x1="21" y1="12" x2="9" y2="12"></line>
+      </svg>
+      <span class="nav-text">Sair</span>
+    </button>
+  </div>
+</aside>
+
+<!-- Menu Button (Hamburger) -->
+<button class="menu-toggle" (click)="toggleSidebar()" aria-label="Abrir menu">
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+</button>

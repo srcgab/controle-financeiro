@@ -4,22 +4,18 @@
   padding: 20px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 28px;
-  color: #1e293b;
-}
-
-.header-actions {
+/* Quick Actions Section */
+.quick-actions {
   display: flex;
   gap: 12px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .quick-actions {
+    justify-content: flex-start;
+  }
 }
 
 .btn-add-income,
