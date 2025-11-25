@@ -61,7 +61,7 @@
           Atenção necessária
         </p>
         <p class="balance-status" *ngIf="getBalanceStatus() === 'neutral'">
-          ℹSituação neutra
+          Situação neutra
         </p>
       </div>
     </div>
@@ -92,6 +92,20 @@
         </div>
         <div class="card-footer">
           <span class="action-hint">Clique para adicionar despesa</span>
+        </div>
+      </div>
+
+      <div class="card reserved-card" *ngIf="dashboardData.financialGoal && dashboardData.financialGoal.reservedAmount && dashboardData.financialGoal.reservedAmount > 0">
+        <div class="card-header">
+          <h3>Valores Reservados</h3>
+          <span class="card-icon-reserved"></span>
+        </div>
+        <div class="card-body">
+          <p class="transaction-amount reserved">R$ {{ dashboardData.financialGoal.reservedAmount | number:'1.2-2' }}</p>
+          <p class="transaction-period">Total guardado</p>
+        </div>
+        <div class="card-footer">
+          <span class="action-hint">Para metas financeiras</span>
         </div>
       </div>
     </div>

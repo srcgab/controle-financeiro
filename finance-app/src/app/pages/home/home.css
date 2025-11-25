@@ -163,7 +163,7 @@
 }
 
 .btn-income {
-  background: linear-gradient(to right, #9fa6d0, #4258c24f);
+  background: linear-gradient(to right, #49a473, #baebdb);
 }
 
 .btn-income:hover {
@@ -172,7 +172,7 @@
 }
 
 .btn-expense {
-  background: #5372ff4f;
+  background: #e74c4cb8;
 }
 
 .btn-expense:hover {
@@ -213,6 +213,7 @@
 }
 
 .card-icon,
+.card-icon-reserved,
 .balance-icon {
   font-size: 24px;
 }
@@ -254,12 +255,22 @@
   gap: 20px;
 }
 
+/* Quando há 3 cards (incluindo valores reservados), organize em uma linha */
+.transaction-cards:has(.reserved-card) {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
 .income-card {
   border-left: 4px solid #10b981;
  }
 
 .expense-card {
   border-left: 4px solid #ef4444;
+  background: white;
+}
+
+.reserved-card {
+  border-left: 4px solid #32439c;
   background: white;
 }
 
@@ -274,6 +285,10 @@
 }
 
 .transaction-amount.expense {
+  color: #32439c;
+}
+
+.transaction-amount.reserved {
   color: #32439c;
 }
 
@@ -297,7 +312,7 @@
 
 .goal-card {
   border-left: 4px solid #32439c;
-  background: #d4ffe6;
+  background: #fff;
 }
 
 .btn-edit-goal {
@@ -542,4 +557,12 @@
   font-size: 13px;
   color: #32439c;
   font-weight: 600;
+}
+
+.reserve-info {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+  line-height: 1.4;
 }

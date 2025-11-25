@@ -118,7 +118,7 @@
         </div>
         <div class="col-actions">
           <button class="btn-delete" (click)="deleteTransaction(transaction.id)" title="Excluir">
-            🗑️
+            <app-icon name="delete" [size]="18" iconClass="icon-delete"></app-icon>
           </button>
         </div>
       </div>
@@ -137,7 +137,7 @@
 
   <div class="back-button-container">
     <button routerLink="/home" class="btn-back">
-      ← Voltar ao Dashboard
+      Voltar ao Dashboard
     </button>
   </div>
 </div>

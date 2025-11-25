@@ -6,11 +6,12 @@ import { TransactionService } from '../../services/transaction.service';
 import { CategoryService } from '../../services/category.service';
 import { Transaction } from '../../models/transaction.model';
 import { Category } from '../../models/category.model';
+import { IconComponent } from '../../utils/icon.component';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, IconComponent],
   templateUrl: './transactions.html',
   styleUrls: ['./transactions.css']
 })
