@@ -1,0 +1,112 @@
+<div class="developers-container">
+  <header class="developers-header">
+    <div class="header-content">
+      <button class="btn-back" (click)="goBack()">
+        ← Voltar
+      </button>
+      <h1>Desenvolvedores & Suporte</h1>
+      <p class="header-subtitle">Conheça a equipe e obtenha ajuda</p>
+    </div>
+  </header>
+
+  <div class="developers-content">
+    <div class="team-section">
+      <h2>Equipe de Desenvolvimento</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-avatar">
+            <span class="avatar-initials">GS</span>
+          </div>
+          <div class="member-info">
+            <h3>Gabrielle Souza</h3>
+            <p class="member-role">Desenvolvedor Principal</p>
+            <p class="member-description">Responsável pelo desenvolvimento do sistema de controle financeiro</p>
+            <div class="member-contact">
+              <button class="btn-contact" (click)="sendEmail('gabrielle.souza@example.com')">
+                📧 Contato
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2>Sobre o Projeto</h2>
+      <div class="project-info">
+        <div class="info-card">
+          <h3>🎯 Objetivo</h3>
+          <p>Oferecer uma ferramenta simples e eficiente para controle de finanças pessoais, ajudando usuários a organizarem suas receitas, despesas e metas financeiras.</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>🔧 Tecnologias</h3>
+          <ul class="tech-list">
+            <li>Angular 17+</li>
+            <li>TypeScript</li>
+            <li>CSS3</li>
+            <li>JSON Server (Development)</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>✨ Funcionalidades</h3>
+          <ul class="feature-list">
+            <li>Controle de receitas e despesas</li>
+            <li>Dashboard interativo</li>
+            <li>Metas financeiras</li>
+            <li>Perfil de usuário</li>
+            <li>Relatórios por período</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="support-section">
+      <h2>Suporte & Ajuda</h2>
+      <div class="support-options">
+        <div class="support-card">
+          <h3>🐛 Reportar Bug</h3>
+          <p>Encontrou algum problema? Nos ajude a melhorar reportando bugs.</p>
+          <button class="btn-support" (click)="openGitHub()">
+            Reportar no GitHub
+          </button>
+        </div>
+
+        <div class="support-card">
+          <h3>💡 Sugestões</h3>
+          <p>Tem ideias para melhorar o sistema? Compartilhe conosco!</p>
+          <button class="btn-support" (click)="sendEmail('sugestoes@financeiro.com')">
+            Enviar Sugestão
+          </button>
+        </div>
+
+        <div class="support-card">
+          <h3>❓ Dúvidas</h3>
+          <p>Precisa de ajuda para usar o sistema? Entre em contato!</p>
+          <button class="btn-support" (click)="sendEmail('suporte@financeiro.com')">
+            Contatar Suporte
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="version-section">
+      <h2>Informações da Versão</h2>
+      <div class="version-info">
+        <div class="version-item">
+          <span class="version-label">Versão:</span>
+          <span class="version-value">1.0.0</span>
+        </div>
+        <div class="version-item">
+          <span class="version-label">Data de Lançamento:</span>
+          <span class="version-value">Novembro 2024</span>
+        </div>
+        <div class="version-item">
+          <span class="version-label">Última Atualização:</span>
+          <span class="version-value">{{ getCurrentDate() }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

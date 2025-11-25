@@ -214,4 +214,8 @@ export class Profile implements OnInit {
       month: 'long' 
     });
   }
+
+  navigateToDevelopers(): void {
+    this.router.navigate(['/developers']);
+  }
 }
